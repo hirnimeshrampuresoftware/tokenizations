@@ -92,6 +92,7 @@ jobs:
             bash -exc '${{ env.py }} -m venv .env && \
             source .env/bin/activate && \
             curl --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal && \
+            source $HOME/.cargo/env && \
             cargo test && \
             pip install --upgrade pip && \
             pip install poetry maturin && \
