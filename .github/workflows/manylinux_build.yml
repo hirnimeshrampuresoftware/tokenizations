@@ -107,7 +107,7 @@ jobs:
             pip install twine auditwheel && \
             maturin build --no-sdist --release --strip -i ${{ env.py }} && \
             cd target && \
-            auditwheel repair *whl && \
+            auditwheel repair * && \
             cd .. && \
             #for WHL in target/*whl; do auditwheel repair ${WHL}; done && \
             #find target/ -type f -name "*whl" -exec ${{ env.py }} -m auditwheel repair {} ; && \
