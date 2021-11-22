@@ -35,6 +35,7 @@ jobs:
         $PYTHON -m pip install --upgrade pip
         $PYTHON -m venv .venv
         $PYTHON -m pip install poetry maturin
+        pwd
         poetry install
         poetry run which python
 
@@ -96,6 +97,7 @@ jobs:
             cargo test && \
             pip install --upgrade pip && \
             pip install poetry maturin && \
+            pwd && \
             poetry install && \
             poetry run which python && \
             poetry run maturin develop && \
