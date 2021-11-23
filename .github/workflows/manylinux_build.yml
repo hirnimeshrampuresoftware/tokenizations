@@ -48,12 +48,12 @@ jobs:
       run: poetry run pytest
 
     - name: Install publishment tool
-      if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/python/')
+   #   if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/python/')
       working-directory: python
       run: $PYTHON -m pip install twine auditwheel
 
     - name: Build
-      if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/python/')
+   #   if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/python/')
       working-directory: python
       run: |
         maturin build --no-sdist --release --strip -i $PYTHON
@@ -106,11 +106,7 @@ jobs:
             poetry run pytest && \
             pip install twine auditwheel && \
             maturin build --no-sdist --release --strip -i ${{ env.py }} && \
-            #cd target/wheels && \
-            #auditwheel repair * && \
-            #cd ../.. && \
             for WHL in target/wheels/*whl; do auditwheel repair ${WHL}; done && \
-            #find target/ -type f -name "*whl" -exec ${{ env.py }} -m auditwheel repair {} ; && \
             twine upload target/wheels/*whl --repository-url https://test.pypi.org/legacy/ -u ${{ secrets.TEST_PYPI_USER }} -p ${{ secrets.TEST_PYPI_PASS }} && \
             twine upload target/wheels/*whl -u ${{ secrets.PYPI_USER }} -p ${{ secrets.PYPI_PASS }} && \
             deactivate'
