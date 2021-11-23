@@ -106,10 +106,10 @@ jobs:
             poetry run pytest && \
             pip install twine auditwheel && \
             maturin build --no-sdist --release --strip -i ${{ env.py }} && \
-            cd target/wheels && \
-            auditwheel repair * && \
-            cd ../.. && \
-            #for WHL in target/*whl; do auditwheel repair ${WHL}; done && \
+            #cd target/wheels && \
+            #auditwheel repair * && \
+            #cd ../.. && \
+            for WHL in target/wheels/*whl; do auditwheel repair ${WHL}; done && \
             #find target/ -type f -name "*whl" -exec ${{ env.py }} -m auditwheel repair {} ; && \
             twine upload target/wheels/*whl --repository-url https://test.pypi.org/legacy/ -u ${{ secrets.TEST_PYPI_USER }} -p ${{ secrets.TEST_PYPI_PASS }} && \
             twine upload target/wheels/*whl -u ${{ secrets.PYPI_USER }} -p ${{ secrets.PYPI_PASS }} && \
