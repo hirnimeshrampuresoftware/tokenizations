@@ -101,7 +101,6 @@ jobs:
             poetry run which python && \
             poetry run maturin develop && \
             poetry run pytest && \
-            #pip install twine auditwheel && \
             maturin build --no-sdist --release --strip -i ${{ env.py }} && \
             for WHL in target/wheels/*whl; do auditwheel repair ${WHL}; done && \
             twine upload target/wheels/*whl --repository-url https://test.pypi.org/legacy/ -u ${{ secrets.TEST_PYPI_USER }} -p ${{ secrets.TEST_PYPI_PASS }} && \
